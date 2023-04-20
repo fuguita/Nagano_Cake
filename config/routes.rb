@@ -11,9 +11,11 @@ Rails.application.routes.draw do
   }
 
 scope module: :public do
-   resource :customers, only: [:show, :edit, :update, :withdraw]
+   resource :customers, only: [:show]
    get 'customers/check' => "customers#check", as: 'check'
-   get 'customers/information/edit' => "customers#information#edit", as: 'information_edit'
+   get 'customers/information/edit' => "customers#edit", as: 'information_edit_customers'
+   patch 'customer/information' => "customers#update", as: 'information_customers'
+   patch 'customers/withdraw' => "customers#dithdraw", as: 'withdraw_customers'
   end
 
    namespace :admin do
