@@ -14,6 +14,16 @@ class Public::CustomersController < ApplicationController
     redirect_to customers_path
   end
 
+  def check
+  end
+
+def withdraw
+   current_customer.update(is_deleted: true)
+    reset_session
+    redirect_to '/'
+end
+
+
   private
 
   def customer_params
