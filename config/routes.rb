@@ -20,6 +20,7 @@ scope module: :public do
 
    namespace :admin do
     resources :customers, only: [:index, :show, :edit]
+    resources :genres, only: [:index,:create, :edit, :update]
   end
 
   root to: "homes#top"
