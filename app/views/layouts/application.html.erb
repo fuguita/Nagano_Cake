@@ -13,7 +13,8 @@
   <body>
    <header>
      <% if request.fullpath.include? "admin" %>
-        <% if admin_sign_in? %>
+        <% if admin_signed_in? %>
+          <%= link_to "ジャンル一覧", admin_genres_path %>
           <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link" %>
         <% else %>
           <%= link_to "ログイン", new_admin_session_path, class: "nav-link" %>
