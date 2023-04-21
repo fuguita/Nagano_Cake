@@ -1,0 +1,25 @@
+<h3>商品新規登録</h3>
+<%= form_with model: @item do |f| %>
+  <div class="form_group">
+   商品画像  <%= f.file_field :image, accept: "image/*" %>
+  </div>
+  <div class="form_group">
+   商品名 <%= f.text_field :name, placeholder: "商品名" %>
+  </div>
+  <div class="form_group">
+   商品説明 <%= f.text_area :introduction, placeholder: "ここに説明文を記述します" %>
+  </div>
+
+   <!--ジャンル機能-->
+
+  <div class="form_group">
+   税抜価格 <%= f.number_field :price, placeholder: "100" %>
+  </div>
+
+   <!--販売ステータス-->
+
+   <div class="form_group">
+    <%= f.submit "新規登録" %>
+
+
+<% end %>
