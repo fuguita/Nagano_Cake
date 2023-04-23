@@ -3,6 +3,16 @@ class Item < ApplicationRecord
   has_one_attached :image
 
    belongs_to :genre
+   
+  def active_judge
+    if is_active
+      return '販売中'
+    else
+      return '販売停止中'
+    end
+  end
+    
+  
 
   def get_image(width, height)
     unless image.attached?
