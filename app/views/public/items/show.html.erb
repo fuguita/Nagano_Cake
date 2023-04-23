@@ -1,2 +1,20 @@
-<h1>Public::Items#show</h1>
-<p>Find me in app/views/public/items/show.html.erb</p>
+<div>
+ <%= image_tag @item.get_image(60, 60) %>
+</div>
+<div>
+ <%= @item.name %>
+</div>
+<diV>
+  <%= (@item.price*1.10).floor.to_s(:delimited) %>(税込)
+</diV>
+<div>
+  <select name="value">
+  <option value="" selected disabled>個数選択</option>
+  <option value=>1</option>
+  <option value=>2</option>
+  <option value=>3</option>
+
+  <!--カートに入れる-->
+
+
+
