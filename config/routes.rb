@@ -21,7 +21,7 @@ scope module: :public do
 
 namespace :admin do
    get 'homes/top'
-   resources :customers, only: [:index, :show, :edit]
+   resources :customers, only: [:index, :show, :edit, :update]
    resources :genres, only: [:index,:create, :edit, :update]
    resources :items, only: [:new, :create, :index, :show, :edit, :update]
   end
