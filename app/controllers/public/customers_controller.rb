@@ -5,6 +5,7 @@ class Public::CustomersController < ApplicationController
   end
 
   def edit
+    
      #@customer = Customer.find_by(params[:id])
   end
 

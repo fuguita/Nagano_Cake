@@ -15,5 +15,6 @@
    メールアドレス <%= @customer.email %><br>
 </div>
 
- <h4>配送先</h4>
+ <h4>配送先 <%= link_to "一覧を見る", shippings_path(@customer) %>
+
   <h4>注文履歴</h4>

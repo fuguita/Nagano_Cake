@@ -17,6 +17,7 @@ scope module: :public do
    get 'customers/information/edit' => "customers#edit", as: 'information_edit_customers'
    patch 'customer/information' => "customers#update", as: 'information_customers'
    patch 'customers/withdraw' => "customers#withdraw", as: 'withdraw_customers'
+   resources :shippings, only: [:create, :index, :edit, :update, :destroy]
   end
 
 namespace :admin do

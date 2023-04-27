@@ -3,6 +3,8 @@ class Customer < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+         
+  has_many :shippings, dependent: :destroy       
 
   def deleted_judge
     if is_deleted
