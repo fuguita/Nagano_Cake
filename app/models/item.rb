@@ -4,8 +4,8 @@ class Item < ApplicationRecord
 
    belongs_to :genre
    has_many :cart_items, dependent: :destroy
-   
-   
+
+
   def active_judge
     if is_active
       return '販売中'
@@ -13,8 +13,12 @@ class Item < ApplicationRecord
       return '販売停止中'
     end
   end
-    
-  
+
+  def with_tax_price
+    (price*1.10).floor.to_s(:delimited)
+  end
+
+
 
   def get_image(width, height)
     unless image.attached?
