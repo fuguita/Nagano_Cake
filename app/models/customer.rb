@@ -4,7 +4,9 @@ class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
          
-  has_many :shippings, dependent: :destroy       
+  has_many :shippings, dependent: :destroy
+  has_many :cart_items, dependent: :destroy
+  
 
   def deleted_judge
     if is_deleted

@@ -8,12 +8,11 @@
   <%= (@item.price*1.10).floor.to_s(:delimited) %>(税込)
 </diV>
 
-<!--%= form_with model: @cart_item do |f| %>-->
-<!--<div>-->
-<!--  %= f.select :amount, *[1..5], prompt: "個数選択" %> -->
-<!--% end %>-->
+<%= form_with model: @cart_item, url: cart_items_path do |f| %>
 
-  <!--カートに入れる-->
-
+ <%= f.hidden_field :item_id, :value => @item.id %>
+ <%= f.select :amount, *[1..5], prompt: "個数選択" %>
+ <%= f.submit 'カートに入れる' %>
+<% end %>
 
 
