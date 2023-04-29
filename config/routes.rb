@@ -19,8 +19,9 @@ scope module: :public do
    patch 'customer/information' => "customers#update", as: 'information_customers'
    patch 'customers/withdraw' => "customers#withdraw", as: 'withdraw_customers'
    resources :shippings, only: [:create, :index, :edit, :update, :destroy]
+   delete 'cart_items/destroy_all' => "cart_items#destroy_all", as: 'destroy_all_cart_item'
    resources :cart_items, only: [:create, :index, :update, :destroy]
-   delete 'cart_items/destroy_all' => "cart_items#destory_all", as: 'destroy_all_cart_item'
+
   end
 
 namespace :admin do

@@ -15,7 +15,7 @@ class Item < ApplicationRecord
   end
 
   def with_tax_price
-    (price*1.10).floor.to_s(:delimited)
+    (price*1.10).floor
   end
 
 
