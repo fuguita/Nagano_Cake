@@ -1,16 +1,21 @@
 class Public::CartItemsController < ApplicationController
 
   def create
+       item = cart_item_params[:item_id]
+       amount = cart_item_params[:amount]
+    if cart_item = CartItem.find_by(item_id: item)
+       amount = cart_item.amount + amount.to_i
+       cart_item.update(amount: amount)
+    else
    @cart_item = CartItem.new(cart_item_params)
   @cart_item.customer_id = current_customer.id
    @cart_item.save
-   redirect_to cart_items_path
-
+    end
+    redirect_to cart_items_path
   end
 
   def index
     @cart_items = current_customer.cart_items
-
   end
 
   def destroy_all
