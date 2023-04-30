@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   devise_for :customers,skip: [:passwords], controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'
@@ -21,6 +20,9 @@ scope module: :public do
    resources :shippings, only: [:create, :index, :edit, :update, :destroy]
    delete 'cart_items/destroy_all' => "cart_items#destroy_all", as: 'destroy_all_cart_item'
    resources :cart_items, only: [:create, :index, :update, :destroy]
+   post 'orders/:id/check' => "orders#check", as: 'check_order'
+   resources :orders, only:[:new, :create, :index, :show]
+   get 'orders/id/complete' => "orders#complete", as: 'complete_order'
 
   end
 
