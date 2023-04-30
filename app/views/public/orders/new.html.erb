@@ -9,9 +9,12 @@
 <%= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer]%>
 
 <div>
-<%= order.customer_id.postal_code %> <%= order.customer_id.address %><br>
-<%= order.customer_id.full_name %>
-<%= submit '確認画面へ' %>
+
+
+〒<%= current_customer.postal_code %>
+<%= current_customer.address %><br>
+<%= current_customer.full_name %>
+<%= f.submit '確認画面へ' %>
 
 
 
