@@ -12,8 +12,15 @@ class Public::OrdersController < ApplicationController
     @order.address = current_customer.address
     @order.name = current_customer.full_name
     @order.customer_id = current_customer.id
+
+    @shipping = Shipping.find(params[:order][:shipping_id])
+    @order.postal_code = @shipping.postal_code
+    @order.address = @shipping.address
+    @order.name = @shipping.name
+
     @cart_items = current_customer.cart_items.all
     @total = 0
+
 
   end
 
