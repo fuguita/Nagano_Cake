@@ -8,11 +8,17 @@ class Public::OrdersController < ApplicationController
 
   def check
     @order = Order.new(order_params)
-    order.customer_id = current_customer.id
-    redirect_to check_order_path(@order)
+    @order.postal_code = current_customer.postal_code
+    @order.address = current_customer.address
+    @order.name = current_customer.full_name
+    @order.customer_id = current_customer.id
+    @cart_items = current_customer.cart_items
+    @total = 0
+
   end
 
   def create
+    
   end
 
   def index
