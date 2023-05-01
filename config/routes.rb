@@ -21,8 +21,9 @@ scope module: :public do
    delete 'cart_items/destroy_all' => "cart_items#destroy_all", as: 'destroy_all_cart_item'
    resources :cart_items, only: [:create, :index, :update, :destroy]
    post 'orders/check' => "orders#check", as: 'check_order'
-   resources :orders, only:[:new, :create, :index, :show]
    get 'orders/complete' => "orders#complete", as: 'complete_order'
+   resources :orders, only:[:new, :create, :index, :show]
+
 
   end
 
