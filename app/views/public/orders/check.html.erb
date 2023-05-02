@@ -38,6 +38,7 @@
 〒<%= @order.postal_code %> <%= @order.address %><br>
 <%= @order.name %>
 
+
 <%= form_with model: @order do |f| %>
 <%= f.hidden_field :shipping_cost %>
 <%= f.hidden_field :total_payment, :value => @order.total_payment(@total) %>
@@ -46,7 +47,9 @@
 <%= f.hidden_field :name %>
 <%= f.hidden_field :customer_id %>
 <%= f.hidden_field :payment_method %>
-
+<% if @flag.present %>
+ <%= f.hidden_field :new_adderss, value: true %>
+<% end %>
 <%= f.submit '注文確定' %>
 <% end %>
 

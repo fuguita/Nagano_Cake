@@ -8,15 +8,19 @@ class Public::OrdersController < ApplicationController
 
   def check
     @order = Order.new(order_params)
+  if params[:order][:address_number] == "0"
     @order.postal_code = current_customer.postal_code
     @order.address = current_customer.address
     @order.name = current_customer.full_name
     @order.customer_id = current_customer.id
-
+  elsif params[:order][:address_number] = "1"
     @shipping = Shipping.find(params[:order][:shipping_id])
     @order.postal_code = @shipping.postal_code
     @order.address = @shipping.address
     @order.name = @shipping.name
+  elsif params[:order][:address_number] = "2"
+    @flag = true
+  end
 
     @cart_items = current_customer.cart_items.all
     @total = 0
@@ -27,6 +31,12 @@ class Public::OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.save
+    
+    if params[:order][:new_address]
+      shipping = Shipping.new(address: @order.address, customer_id: current_user.id)
+      shipping.save
+    end
+
 
     @cart_items = current_customer.cart_items.all
     @cart_items.each do |cart_item|
