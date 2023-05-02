@@ -47,9 +47,6 @@
 <%= f.hidden_field :name %>
 <%= f.hidden_field :customer_id %>
 <%= f.hidden_field :payment_method %>
-<% if @flag.present %>
- <%= f.hidden_field :new_adderss, value: true %>
-<% end %>
 <%= f.submit '注文確定' %>
 <% end %>
 

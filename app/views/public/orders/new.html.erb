@@ -1,4 +1,4 @@
-<h3>注文情報入</h3>
+<h3>注文情報入力</h3>
 
 <%= form_with model: @order, url: check_order_path, method: :post do |f| %>
 <h5><strong>支払方法</strong></h5>
@@ -22,16 +22,16 @@
   <div>
   <%= f.radio_button :address_number, 1 %>
   <%= f.label :address_number, '登録済住所から選択' %>
-  <%= f.select :shipping_id, options_from_collection_for_select(current_customer.shippings.all, :id, :shipping_display) %>
+  <%= f.select :shipping_id, options_from_collection_for_select(current_customer.shippings.all, :id, :shipping_display), prompt: "選択してください" %>
 
   </div>
-  <!--<div>-->
-    <!--%= f.radio_button :address_number, 2 %>-->
-    <!--% f.label :address_number, "新しいお届け先" %>-->
-    <!--郵便番号(ハイフンなし)%= f.text_field :postal_code, placeholder: 0000 %>-->
-    <!--住所%= f.text_field :addressm, placeholder: "東京都渋谷区代々木神園町0-0" %>-->
-    <!--宛名%= f.text_field :name, placeholder: "令和道子" %>-->
-  <!--</div>-->
+  <div>
+    <%= f.radio_button :address_number, 2 %>
+    <%= f.label :address_number, "新しいお届け先" %>
+    郵便番号(ハイフンなし)<%= f.text_field :postal_code, placeholder: 0000 %>
+    住所<%= f.text_field :address, placeholder: "東京都渋谷区代々木神園町0-0" %>
+    宛名<%= f.text_field :name, placeholder: "令和道子" %>
+  </div>
   <%= f.submit '確認画面へ' %>
 </div>
 <% end %>

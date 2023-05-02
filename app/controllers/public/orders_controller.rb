@@ -13,13 +13,12 @@ class Public::OrdersController < ApplicationController
     @order.address = current_customer.address
     @order.name = current_customer.full_name
     @order.customer_id = current_customer.id
-  elsif params[:order][:address_number] = "1"
+  elsif params[:order][:address_number] == "1"
     @shipping = Shipping.find(params[:order][:shipping_id])
     @order.postal_code = @shipping.postal_code
     @order.address = @shipping.address
     @order.name = @shipping.name
-  elsif params[:order][:address_number] = "2"
-    @flag = true
+  elsif params[:order][:address_number] == "2"
   end
 
     @cart_items = current_customer.cart_items.all
@@ -31,11 +30,6 @@ class Public::OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.save
-    
-    if params[:order][:new_address]
-      shipping = Shipping.new(address: @order.address, customer_id: current_user.id)
-      shipping.save
-    end
 
 
     @cart_items = current_customer.cart_items.all
