@@ -3,7 +3,7 @@ class Public::CartItemsController < ApplicationController
   def create
        item = cart_item_params[:item_id]
        amount = cart_item_params[:amount]
-    if cart_item = CartItem.find_by(item_id: item)
+    if cart_item = current_customer.cart_items.find_by(item_id: item)
        amount = cart_item.amount + amount.to_i
        cart_item.update(amount: amount)
     else

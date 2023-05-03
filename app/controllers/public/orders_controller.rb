@@ -8,6 +8,14 @@ class Public::OrdersController < ApplicationController
 
   def check
     @order = Order.new(order_params)
+
+    if params[:order][:payment_method] == nil
+
+      render :new
+      return
+    end
+
+
   if params[:order][:address_number] == "0"
     @order.postal_code = current_customer.postal_code
     @order.address = current_customer.address
@@ -19,6 +27,10 @@ class Public::OrdersController < ApplicationController
     @order.address = @shipping.address
     @order.name = @shipping.name
   elsif params[:order][:address_number] == "2"
+    if params[:order][:postal_code] || params[:order][:name] ||params[:order][:address]
+       render :new
+       return
+    end
   end
 
     @cart_items = current_customer.cart_items.all
@@ -30,19 +42,16 @@ class Public::OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.save
-
-
-    @cart_items = current_customer.cart_items.all
+    @cart_items = current_customer.cart_items
     @cart_items.each do |cart_item|
-    @order_detail = OrderDetail.new
-    @order_detail.amount = cart_item.amount
-    @order_detail.item_id = cart_item.item_id
-    @order_detail.order_id = @order.id
-    @order_detail.price = cart_item.item.with_tax_price
-    @order_detail.save
+      @order_detail = OrderDetail.new
+      @order_detail.amount = cart_item.amount
+      @order_detail.item_id = cart_item.item_id
+      @order_detail.order_id = @order.id
+      @order_detail.price = cart_item.item.with_tax_price
+      @order_detail.save
+    end
     @cart_items.destroy_all
-
-  end
     redirect_to complete_order_path
   end
 
@@ -54,6 +63,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
+
   end
 
   private
