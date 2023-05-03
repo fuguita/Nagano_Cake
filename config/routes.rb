@@ -28,7 +28,7 @@ scope module: :public do
   end
 
 namespace :admin do
-   get 'homes/top'
+   get '/' => "homes#top", as: 'top'
    resources :customers, only: [:index, :show, :edit, :update]
    resources :genres, only: [:index,:create, :edit, :update]
    resources :items, only: [:new, :create, :index, :show, :edit, :update]
