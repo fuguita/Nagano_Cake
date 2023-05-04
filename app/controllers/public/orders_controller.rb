@@ -8,9 +8,7 @@ class Public::OrdersController < ApplicationController
 
   def check
     @order = Order.new(order_params)
-
     if params[:order][:payment_method] == nil
-
       render :new
       return
     end
@@ -25,16 +23,13 @@ class Public::OrdersController < ApplicationController
     @order.address = @shipping.address
     @order.name = @shipping.name
   elsif params[:order][:address_number] == "2"
-    if params[:order][:postal_code] || params[:order][:name] ||params[:order][:address]
-       render :new
-       return
-    end
-  end
-
+    # if params[:order][:postal_code] || params[:order][:name] ||params[:order][:address]
+    #   render :new
+    #   return
+    # end
+   end
     @cart_items = current_customer.cart_items.all
     @total = 0
-
-
   end
 
   def create
@@ -49,9 +44,20 @@ class Public::OrdersController < ApplicationController
       @order_detail.price = cart_item.item.with_tax_price
       @order_detail.save
     end
+     @shipping = current_customer.shippings.new
+    @shipping.postal_code = params[:order][:postal_code]
+    @shipping.address = params[:order][:address]
+    @shipping.name = params[:order][:name]
+    @shipping.customer_id = current_customer.id
+    if @shipping.save
+      @order.postal_code = @shipping.postal_code
+      @order.address = @shipping.address
+      @order.name = @shipping.name
+    end
     @cart_items.destroy_all
     redirect_to complete_order_path
-  end
+   end
+
 
   def complete
 

@@ -8,30 +8,27 @@
 <%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
 <%= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer]%>
 
-
 <div>
   <h5><strong>お届け先</strong></h5>
-  <div>
+ <div>
   <%= f.radio_button :address_number, 0 %>
   <%= f.label :address_number, 'ご自身の住所' %>
 〒<%= current_customer.postal_code %>
   <%= current_customer.address %><br>
   <%= current_customer.full_name %>
-  </div>
-
-  <div>
+ </div>
+ <div>
   <%= f.radio_button :address_number, 1 %>
   <%= f.label :address_number, '登録済住所から選択' %>
   <%= f.select :shipping_id, options_from_collection_for_select(current_customer.shippings.all, :id, :shipping_display), prompt: "選択してください" %>
-
-  </div>
-  <div>
+ </div>
+ <div>
     <%= f.radio_button :address_number, 2 %>
     <%= f.label :address_number, "新しいお届け先" %>
     郵便番号(ハイフンなし)<%= f.text_field :postal_code, placeholder: 0000 %>
     住所<%= f.text_field :address, placeholder: "東京都渋谷区代々木神園町0-0" %>
     宛名<%= f.text_field :name, placeholder: "令和道子" %>
-  </div>
-  <%= f.submit '確認画面へ' %>
+ </div>
+  <%= f.submit '確認画面へ' %> 
 </div>
 <% end %>
