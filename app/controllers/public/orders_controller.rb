@@ -27,7 +27,7 @@ class Public::OrdersController < ApplicationController
     #   render :new
     #   return
     # end
-   end
+  end
     @cart_items = current_customer.cart_items.all
     @total = 0
   end
@@ -56,7 +56,7 @@ class Public::OrdersController < ApplicationController
     end
     @cart_items.destroy_all
     redirect_to complete_order_path
-   end
+  end
 
 
   def complete
@@ -64,10 +64,13 @@ class Public::OrdersController < ApplicationController
   end
 
   def index
+    @orders = current_customer.orders
+    # @order_details = @order.order_details.all
   end
 
   def show
-
+    @order = Order.find(params[:id])
+    @order_details = @order.order_details.all
   end
 
   private

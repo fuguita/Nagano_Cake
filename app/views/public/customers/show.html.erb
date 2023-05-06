@@ -13,8 +13,7 @@
    住所 <%= @customer.address %><br>
    電話番号 <%= @customer.telephone_number %><br>
    メールアドレス <%= @customer.email %><br>
-</div>
+ </div>
 
- <h4>配送先 <%= link_to "一覧を見る", shippings_path(@customer) %>
-
-  <h4>注文履歴</h4>
+ <h4>配送先 <%= link_to "一覧を見る", shippings_path(@customer) %></h4>
+ <h4>注文履歴 <%= link_to "一覧をみる", orders_path %></h4>
