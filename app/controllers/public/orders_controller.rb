@@ -33,7 +33,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
+    @order = current_customer.orders.new(order_params)
     @order.save
     @cart_items = current_customer.cart_items
     @cart_items.each do |cart_item|
@@ -44,16 +44,12 @@ class Public::OrdersController < ApplicationController
       @order_detail.price = cart_item.item.with_tax_price
       @order_detail.save
     end
-     @shipping = current_customer.shippings.new
-    @shipping.postal_code = params[:order][:postal_code]
-    @shipping.address = params[:order][:address]
-    @shipping.name = params[:order][:name]
-    @shipping.customer_id = current_customer.id
-    if @shipping.save
-      @order.postal_code = @shipping.postal_code
-      @order.address = @shipping.address
-      @order.name = @shipping.name
-    end
+
+    # @shipping = current_customer.shippings.find_or_create_by(params[:shipping][:postal_code])
+    # @shipping.postal_code = params[:order][:postal_code]
+    # @shipping.address = params[:order][:address]
+    # @shipping.name = params[:order][:name]
+    # @shipping.save
     @cart_items.destroy_all
     redirect_to complete_order_path
   end

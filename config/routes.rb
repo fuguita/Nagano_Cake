@@ -23,8 +23,6 @@ scope module: :public do
    post 'orders/check' => "orders#check", as: 'check_order'
    get 'orders/complete' => "orders#complete", as: 'complete_order'
    resources :orders, only:[:new, :create, :index, :show]
-
-
   end
 
 namespace :admin do
@@ -32,7 +30,8 @@ namespace :admin do
    resources :customers, only: [:index, :show, :edit, :update]
    resources :genres, only: [:index,:create, :edit, :update]
    resources :items, only: [:new, :create, :index, :show, :edit, :update]
-   resources :orders, only: [:show]
+   resources :orders, only: [:show, :update]
+   resources :order_details, only: [:update]
   end
 
 # root to: "homes#top"

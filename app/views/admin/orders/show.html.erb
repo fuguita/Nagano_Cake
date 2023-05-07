@@ -4,6 +4,11 @@
   <p>注文日 <%= @order.created_at.strftime('%Y/%m/%d') %></p>
   <p>配送先 <%= @order.address %></p>
   <p>支払い方法 <%= @order.payment_method_i18n %></p>
+  <p>注文ステータス
+  <%= form_with model: @order, url: admin_order_path(@order), method: :patch do |f| %>
+  <%= f.select :status, Order.statuses_i18n.invert %>
+  <%= f.submit "更新" %>
+  <% end %></p>
 </div>
 
 <table class="table">
@@ -12,7 +17,8 @@
     <th>単価(税込)</th>
     <th>数量</th>
     <th>小計</th>
-    <th></th>
+    <th>製作ステータス</th>
+
  </thead>
  <tbody>
   <% @order_details.each do |order_detail| %>
@@ -20,7 +26,12 @@
     <td><%= order_detail.item.name %></td>
     <td><%= order_detail.price.to_s(:delimited) %></td>
     <td><%= order_detail.amount %></td>
-    <td><%= order_detail.subtotal.to_s(:delimited) %>
+    <td><%= order_detail.subtotal.to_s(:delimited) %></td>
+    <td><%= form_with model: order_detail, url: admin_order_detail_path(order_detail) do |f| %>
+        <%= f.select :making_status, OrderDetail.making_statuses_i18n.invert %>
+        <%= f. submit "更新" %>
+        <% end %></th></td>
+
    </tr>
   <% end %>
  </tbody>
@@ -30,7 +41,8 @@
   <!--<%# @total = @order_details.subtotal %>-->
   <tr><th>商品合計</th><td><%= @order_details.sum(&:subtotal) %></td></tr>
   <tr><th>送料</th><td><%= @order.shipping_cost %></td></tr>
-  <tr><th>請求金額</th><td><%= @order.total_payment(@order_details.sum(&:subtotal)).to_s(:delimited) %><%#= (@order_details.sum(&:subtotal)+@order.shipping_cost).floor %></td></tr>
+  <tr><th>請求金額</th><td><%= @order.total_payment.to_s(:delimited) %><%#= (@order_details.sum(&:subtotal)+@order.shipping_cost).floor %></td></tr>
+  <!--(@order_details.sum(&:subtotal))-->
 </table>
 
 
