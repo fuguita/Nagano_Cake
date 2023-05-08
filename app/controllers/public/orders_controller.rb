@@ -18,15 +18,19 @@ class Public::OrdersController < ApplicationController
     @order.name = current_customer.full_name
     @order.customer_id = current_customer.id
   elsif params[:order][:address_number] == "1"
+   if params[:order][:shippig_id] == nil
+     render :new
+     return
+   end
     @shipping = Shipping.find(params[:order][:shipping_id])
     @order.postal_code = @shipping.postal_code
     @order.address = @shipping.address
     @order.name = @shipping.name
   elsif params[:order][:address_number] == "2"
-    # if params[:order][:postal_code] || params[:order][:name] ||params[:order][:address]
-    #   render :new
-    #   return
-    # end
+     if params[:order][:postal_code] || params[:order][:name] ||params[:order][:address] == nil
+    render :new
+     return
+     end
   end
     @cart_items = current_customer.cart_items.all
     @total = 0
@@ -45,7 +49,11 @@ class Public::OrdersController < ApplicationController
       @order_detail.save
     end
 
-    # @shipping = current_customer.shippings.find_or_create_by(params[:shipping][:postal_code])
+    @shipping = current_customer.shippings.find_or_create_by(name: params[:order][:name], postal_code: params[:order][:postal_code], address: params[:order][:address]) do |shipping|
+      shipping.name = params[:order][:name]
+      shipping.postal_code = params[:order][:postal_code]
+      shipping.address = params[:order][:address]
+    end
     # @shipping.postal_code = params[:order][:postal_code]
     # @shipping.address = params[:order][:address]
     # @shipping.name = params[:order][:name]

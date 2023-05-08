@@ -1,6 +1,7 @@
 class Public::CartItemsController < ApplicationController
 
   def create
+     if customer_signed_in?
        item = cart_item_params[:item_id]
        amount = cart_item_params[:amount]
     if cart_item = current_customer.cart_items.find_by(item_id: item)
@@ -12,6 +13,11 @@ class Public::CartItemsController < ApplicationController
    @cart_item.save
     end
     redirect_to cart_items_path
+     else
+    render template: "homes/top"
+     end
+
+
   end
 
   def index

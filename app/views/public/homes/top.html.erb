@@ -1,10 +1,13 @@
-<h1>top page</h1>
 
 <p>ようこそ、ながのCAKEへ! </p><br>
 <p>このサイトは、ケーキ販売のECサイトになります。</p><br>
 <p>会員でない方も商品の閲覧はできますが、</p><br>
 <p>購入には会員登録が必要になります。</p>
 
+<!--<h4><strong></strong></h4>-->
+<div class="container">
+    <h3 class="my-3">新着商品</h3>
+    <div class="d-flex mb-2">
 <% @items.each do |item| %>
 <%= link_to item_path(item.id) do %>
 <%= image_tag item.get_image(100,100) %>
@@ -12,5 +15,7 @@
 <%= item.name %>
 <%= (item.price*1.10).floor.to_s(:delimited) %>
 <% end %>
+</div>
+</div>
 
 <p><%= link_to '全ての商品を見る', items_path %></p>

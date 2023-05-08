@@ -20,8 +20,4 @@ class Order < ApplicationRecord
     price * amount
   end
 
-
-
-
-
 end
