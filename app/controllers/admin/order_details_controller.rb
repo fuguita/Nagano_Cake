@@ -3,9 +3,23 @@ class Admin::OrderDetailsController < ApplicationController
   def update
     @order_detail = OrderDetail.find(params[:id])
     @order = @order_detail.order
-    @order_detail.update(order_detail_params)
-    redirect_to admin_order_path(@order)
+    @order_details = @order.order_details.all
 
+    is_updated = true
+    if @order_detail.update(order_detail_params)
+      if @order_detail.making_status == 'making'
+        @order.update(status: 2)
+      end
+        @order_details.each do |order_detail|
+      if order_detail.making_status != 'made_up'
+         is_updated = false
+      end
+        end
+      if is_updated
+       @order.update(status: 3)
+      end
+    end
+    redirect_to admin_order_path(@order)
   end
 
   private
