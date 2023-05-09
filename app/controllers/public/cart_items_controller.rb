@@ -19,7 +19,7 @@ class Public::CartItemsController < ApplicationController
         end
         # redirect_to cart_items_path
     else
-        flash.now[:cart_item_notice] = "ログインしてからカート画面にお進みください"
+        flash[:cart_item_notice] = "ログインしてからカート画面にお進みください"
         redirect_to root_path
     end
 
