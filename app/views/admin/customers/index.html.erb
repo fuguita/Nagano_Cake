@@ -22,6 +22,7 @@
      <td><%= customer.email %></td>
      <td><%= customer.deleted_judge %></td>
     <% end %>
+   <%= paginate @customers %>
    </tr>
   </tbody>
 </table>

@@ -22,6 +22,8 @@
 <td><%= item.genre.name %></td>
 <td><%= item.active_judge %></td>
 <% end %>
+
 </tr>
   </tbody>
-</div>
+</table>
+<%= paginate @items %>

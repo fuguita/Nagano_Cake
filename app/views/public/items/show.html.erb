@@ -7,13 +7,15 @@
 <diV>
   <%= @item.with_tax_price %>(税込)
 </diV>
-
+ <% if customer_signed_in? %>
  <%= form_with model: @cart_item do |f| %>
 
   <%= f.hidden_field :item_id, :value => @item.id %>
   <%= f.select :amount, *[1..10], prompt: "個数選択" %>
   <%= f.submit 'カートに入れる' %>
  <% end %>
+ <% end %>
+
 
 
 
