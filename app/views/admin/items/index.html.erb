@@ -1,29 +1,45 @@
-<h3>商品一覧</h3>
-<h4><%= link_to "商品新規登録", new_admin_item_path %></h4>
-<table class="table">
-  <thead>
-    <tr>
-      <th>商品ID</th>
-      <th>商品名</th>
-      <th>税抜価格</th>
-      <th>ジャンル</th>
+<div class="container">
+  <div class="row">
+   <h5 class="my-4 bg-light">商品一覧</h5>
+    <div class="my-4 ml-auto">
+      <%= link_to  new_admin_item_path do %>
+         <i class="fas fa-plus-circle fa-lg" style="color: #bfc3ca;"></i>
+        <% end %>
+    </div>
 
-      <th>ステータス</th>
-    </tr>
-  </thead>
-  <tbody>
-<% @items.each do |item| %>
-<tr>
-<td><%= item.id %></td>
-<td><%= link_to admin_item_path(item.id) do %>
-    <%= item.name %>
-    <% end %></td>
-<td><%= item.price.to_s(:delimited) %></td>
-<td><%= item.genre.name %></td>
-<td><%= item.active_judge %></td>
-<% end %>
+      <table class="table">
+        <thead class="bg-light">
+          <tr>
+            <th>商品ID</th>
+            <th>商品名</th>
+            <th>税抜価格</th>
+            <th>ジャンル</th>
 
-</tr>
-  </tbody>
-</table>
-<%= paginate @items %>
+            <th>ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+      <% @items.each do |item| %>
+      <tr>
+      <td><%= item.id %></td>
+      <td><%= link_to admin_item_path(item.id), class: "text-dark" do %>
+          <%= item.name %>
+          <% end %></td>
+      <td><%= item.price.to_s(:delimited) %></td>
+      <td><%= item.genre.name %></td>
+      <!--<td><%#= item.active_judge %></td>-->
+        <% if item.is_active == true %>
+          <td class="text-success font-weight-bold">販売中</td>
+        <% else %>
+          <td class="text-muted font-weight-bold">販売停止中</td>
+        <% end %>
+      <% end %>
+
+      </tr>
+        </tbody>
+      </table>
+        <div class="mx-auto">
+          <%= paginate @items %>
+        </div>
+  </div>
+</div>
