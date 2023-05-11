@@ -1,28 +1,42 @@
-<h3>会員一覧</h3>
-
-<table class="table">
-  <thead>
-   <tr>
-    <th>会員ID</th>
-    <th>氏名</th>
-    <th>メールアドレス</th>
-    <th>ステータス</th>
-   </tr>
-  </thead>
-  <tbody>
-   <tr>
-    <% @customers.each do |customer| %>
-    <tr>
-     <td><%= customer.id %></td>
-     <td>
-      <%= link_to admin_customer_path(customer.id) do %>
-      <%= customer.full_name %>
-      <% end %>
-     </td>
-     <td><%= customer.email %></td>
-     <td><%= customer.deleted_judge %></td>
-    <% end %>
-   <%= paginate @customers %>
-   </tr>
-  </tbody>
-</table>
+<div class="container">
+  <div class="row">
+   <h5 class="my-4 bg-light">会員商品一覧</h5>
+  </div>
+<div class="row">
+ <div class="col-9 mx-auto">
+         <table class="table">
+            <thead class="bg-light">
+              <tr>
+                <th>会員ID</th>
+                <th>氏名</th>
+                <th>メールアドレス</th>
+                <th>ステータス</th>
+               </tr>
+            </thead>
+            <tbody>
+              <tr>
+               <% @customers.each do |customer| %>
+              <tr>
+                 <td><%= customer.id %></td>
+                 <td>
+                     <%= link_to admin_customer_path(customer.id), class: "text-dark" do %>
+                     <%= customer.full_name %>
+                     <% end %>
+                 </td>
+                 <td><%= customer.email %></td>
+                     <% if customer.is_deleted  == false %>
+                     <td class="text-success font-weight-bold">有効</td>
+                     <% else %>
+                     <td class="text-muted font-weight-bold">退会</td>
+                     <% end %>
+                 <!--<td><%#= customer.deleted_judge %></td>-->
+                <% end %>
+            </tr>
+           </tbody>
+         </table>
+           <div class="mx-auto">
+                      <%= paginate @customers %>
+           </div>
+   </div>
+  </div>
+ </div>
