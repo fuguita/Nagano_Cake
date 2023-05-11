@@ -18,9 +18,9 @@ class Public::OrdersController < ApplicationController
     @order.name = current_customer.full_name
     @order.customer_id = current_customer.id
   elsif params[:order][:address_number] == "1"
-   if params[:order][:shippig_id] == nil
-     render :new
-     return
+   if params[:order][:shipping_id] == nil
+    render :new
+   return
    end
     @shipping = Shipping.find(params[:order][:shipping_id])
     @order.postal_code = @shipping.postal_code
