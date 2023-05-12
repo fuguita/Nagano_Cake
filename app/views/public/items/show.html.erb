@@ -1,20 +1,35 @@
-<div>
- <%= image_tag @item.get_image(60, 60) %>
-</div>
-<div>
- <%= @item.name %>
-</div>
-<diV>
-  <%= @item.with_tax_price %>(税込)
-</diV>
- <% if customer_signed_in? %>
-  <%= form_with model: @cart_item do |f| %>
-
-   <%= f.hidden_field :item_id, :value => @item.id %>
-   <%= f.select :amount, *[1..10], prompt: "個数選択" %>
-   <%= f.submit 'カートに入れる' %>
-  <% end %>
- <% end %>
+<div class="container">
+    <div class="row mt-5">
+      <div class="col-4">
+         <%= image_tag @item.get_image(300, 300) %>
+      </div>
+          <div class="col-6 mt-3">
+        <table class="table table-borderless">
+          <tbody>
+             <tr>
+                <td class="col-4">
+                <h4><strong><%= @item.name %></strong></h4></td>
+             </tr>
+             <tr>
+                <td class="lead"><%= @item.introduction %></td>
+             </tr>
+             <tr>
+                <td class="lead"><strong>￥<%= @item.with_tax_price %>(税込)</strong></td>
+             </tr>
+         <% if customer_signed_in? %>
+           <%= form_with model: @cart_item do |f| %>
+             <tr>
+               <%= f.hidden_field :item_id, :value => @item.id %>
+               <td class="lead"><%= f.select :amount, *[1..10], prompt: "個数選択" %></td>
+               <td><%= f.submit 'カートに入れる', class: "btn btn-success" %></td>
+             </tr>
+            <% end %>
+           <% end %>
+           </tbody>
+         </table>
+       </div>
+     </div>
+ </div>
 
 
 
