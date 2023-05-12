@@ -1,41 +1,58 @@
-<h3>ショッピングカート</h3>
+<div class="container">
+   <div class="row">
+     <h4 class="mt-4 bg-light">ショッピングカート</h4>
+       <div class="mt-4 ml-auto">
+         <%= link_to 'カートを空にする', destroy_all_cart_item_path, method: :delete, class: "btn btn-danger" %>
+       </div>
+   </div>
+           <div class="row">
+             <div class="col-12 mt-3 mx-auto">
+               <table class="table table-bordered">
+                <thead class="bg-light">
+                   <th>商品名</th>
+                   <th>単価(税込)</th>
+                   <th>数量</th>
+                   <th>小計</th>
+                   <th></th>
 
-<%= link_to 'カートを空にする', destroy_all_cart_item_path, method: :delete, class: "btn btn-danger" %>
+                </thead>
+                <tbody>
 
-<table class="table">
- <thead>
-    <th>商品名</th>
-    <th>単価(税込)</th>
-    <th>数量</th>
-    <th>小計</th>
-    <th></th>
+                 <% @cart_items.each do |cart_item| %>
 
- </thead>
- <tbody>
+                  <tr>
+                   <td><%= image_tag cart_item.item.get_image(50,50) %><strong><%= cart_item.item.name %></strong></td>
+                   <td class="pt-4"><%= cart_item.item.with_tax_price.to_s(:delimited) %></td>
+                   <td class="pt-4"><%= form_with model: cart_item do |f| %>
+                        <%= f.select :amount, *[1..10] %>
+                        <%= f.submit '変更', class: "btn btn-sm btn-success" %>
+                       <% end %> </td>
+                   <td class="pt-4"><%= cart_item.subtotal.to_s(:delimited) %></td>
+                   <td class="pt-3"><%= link_to '削除する', cart_item_path(cart_item), method: :delete, class: "btn btn-danger" %></td>
+                  </tr>
+                      <% @total += cart_item.subtotal %>
+                 <% end %>
 
-  <% @cart_items.each do |cart_item| %>
+                </tbody>
+               </table>
+          </div>
+         </div>
 
-   <tr>
-    <td><%= image_tag cart_item.item.get_image(50,50) %><%= cart_item.item.name %></td>
-    <td><%= cart_item.item.with_tax_price.to_s(:delimited) %></td>
-    <td><%= form_with model: cart_item do |f| %>
-         <%= f.select :amount, *[1..10] %>
-         <%= f.submit '変更', class: "btn btn-success" %>
-        <% end %> </td>
-    <td><%= cart_item.subtotal.to_s(:delimited) %></td>
-    <td><%= link_to '削除する', cart_item_path(cart_item), method: :delete, class: "btn btn-danger" %></td>
-   </tr>
-       <% @total += cart_item.subtotal %>
-  <% end %>
 
- </tbody>
-</table>
-<div>合計金額<%= @total.to_s(:delimited) %>
-</div>
-<div><%= link_to '買い物を続ける', '/', class: "btn btn-info" %>
-</div>
-
-<%= link_to '情報入力に進む', new_order_path, class: "btn btn-success" %>
+    <div class="row">
+      <div class="mt-4">
+        <%= link_to '買い物を続ける', '/', class: "btn btn-info" %>
+      </div>
+          <div class="mt-4 ml-auto">
+            <table class="table table-bordered">
+             <tr><th class="bg-light">合計金額</th><td><%= @total.to_s(:delimited) %></td></tr>
+            </table>
+          </div>
+      </div>
+     <div class="row">
+        <div class="mt-5 mx-auto"><%= link_to '情報入力に進む', new_order_path, class: "px-4 btn btn-success" %>
+        </div>
+     </div>
 
 
 
