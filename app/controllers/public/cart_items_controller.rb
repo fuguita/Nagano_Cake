@@ -13,13 +13,13 @@ class Public::CartItemsController < ApplicationController
             @cart_item.customer_id = current_customer.id
             if @cart_item.save
                 redirect_to cart_items_path
-            else
-                redirect_to item_path(item)
-            end
+            # else
+            #     redirect_to item_path(item)
+        end
         end
         # redirect_to cart_items_path
     else
-        flash[:cart_item_notice] = "ログインしてからカート画面にお進みください"
+        # flash[:cart_item_notice] = "ログインしてからカート画面にお進みください"
         redirect_to root_path
     end
 

@@ -18,7 +18,7 @@
                   <% @total_amount += order_detail.amount %>
                   <% end %>
                  <tr>
-                  <td><%= link_to admin_order_path(order), class: "text-dark" do %>
+                  <td><%= link_to admin_order_path(order), class: "border-bottom text-dark" do %>
                   <%= order.updated_at.strftime('%Y/%m/%d %H:%M:%S') %>
                   <% end %></td>
                   <td><%= order.customer.full_name %></td>

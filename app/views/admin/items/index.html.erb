@@ -22,7 +22,7 @@
       <% @items.each do |item| %>
       <tr>
       <td><%= item.id %></td>
-      <td><%= link_to admin_item_path(item.id), class: "text-dark" do %>
+      <td><%= link_to admin_item_path(item.id), class: "border-bottom text-dark" do %>
           <%= item.name %>
           <% end %></td>
       <td><%= item.price.to_s(:delimited) %></td>

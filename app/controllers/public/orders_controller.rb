@@ -7,6 +7,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def check
+
     @order = Order.new(order_params)
     if params[:order][:payment_method] == nil
       render :new
@@ -18,19 +19,20 @@ class Public::OrdersController < ApplicationController
     @order.name = current_customer.full_name
     @order.customer_id = current_customer.id
   elsif params[:order][:address_number] == "1"
-   if params[:order][:shipping_id] == nil
-    render :new
-   return
+   if params[:order][:shipping_id] == ""
+     render :new
+     return
    end
     @shipping = Shipping.find(params[:order][:shipping_id])
     @order.postal_code = @shipping.postal_code
     @order.address = @shipping.address
     @order.name = @shipping.name
   elsif params[:order][:address_number] == "2"
-    # if params[:order][:postal_code] || params[:order][:name] || params[:order][:address] == nil
-    # render :new
-    # return
-    # end
+    if order_params[:postal_code] == "" || order_params[:name] == "" || order_params[:address] == ""
+    render :new
+    return
+    end
+    # binding.pry
   end
     @cart_items = current_customer.cart_items.all
     @total = 0

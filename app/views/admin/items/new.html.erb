@@ -4,10 +4,10 @@
   </div>
      <div class="row mt-4">
         <div class="col-7 px-5 mx-auto">
-          <table class="table table-borderless">
+          <%= form_with model: @item, url: admin_items_path do |f| %>
+           <table class="table table-borderless">
             <tbody>
               <tr>
-                 <%= form_with model: @item, url: admin_items_path do |f| %>
                    <div class="form_group">
                     <td>商品画像</td><td><%= f.file_field :image, accept: "image/*" %></td>
                    </div>
@@ -40,14 +40,13 @@
                    </div>
               </tr>
                 </tbody>
-             </table>
+            </table>
                  <div class="text-center col-10">
                    <div class="form_group">
                      <%= f.submit "新規登録", class: "btn btn-lg btn-success" %>
                    </div>
                  </div>
-
-                     <% end %>
+            <% end %>
           </div>
         </div>
   </div>

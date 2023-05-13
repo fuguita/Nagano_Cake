@@ -5,7 +5,8 @@
 
        <div class="row">
      <div class="col-6 px-5 mr-auto">
-       <table class="table table-borderless">
+       <%= form_with model: @order, url: admin_order_path(@order), method: :patch do |f| %>
+        <table class="table table-borderless">
           <tbody>
             <tr>
              <th>購入者</th>
@@ -23,15 +24,18 @@
              <tr>
                 <th>支払い方法</th><td><%= @order.payment_method_i18n %></td>
              </tr>
+
              <tr>
                 <th>注文ステータス</th>
-                    <%= form_with model: @order, url: admin_order_path(@order), method: :patch do |f| %>
+
                 <td width="350"><%= f.select :status, Order.statuses_i18n.invert %>
                    <%= f.submit "更新", class: "btn btn-sm btn-success ml-3" %></td>
-                    <% end %>
+
              <tr>
+
            </tbody>
-         </table>
+          </table>
+         <% end %>
         </div>
        </div>
 
@@ -45,24 +49,24 @@
                <th>小計</th>
                <th>製作ステータス</th>
                <th></th>
-
             </thead>
             <tbody>
-             <% @order_details.each do |order_detail| %>
-              <tr>
+             <tr>
+              <% @order_details.each do |order_detail| %>
                <td><%= order_detail.item.name %></td>
                <td><%= order_detail.price.to_s(:delimited) %></td>
                <td><%= order_detail.amount %></td>
                <td><%= order_detail.subtotal.to_s(:delimited) %></td>
-                   <%= form_with model: order_detail, url: admin_order_detail_path(order_detail) do |f| %>
+          <%= form_with model: order_detail, url: admin_order_detail_path(order_detail) do |f| %>
                <td><%= f.select :making_status, OrderDetail.making_statuses_i18n.invert %></td>
                <td><%= f. submit "更新", class: "btn btn-sm btn-success" %></td>
-                   <% end %>
+               <% end %>
               </tr>
-             <% end %>
+              <% end %>
             </tbody>
            </table>
     </div>
+  </div>
 
      <div class="col-3 ml-auto">
            <table class="table table-borderless d-flex align-items-end">
