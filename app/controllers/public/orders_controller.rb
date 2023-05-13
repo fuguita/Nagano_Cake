@@ -27,10 +27,10 @@ class Public::OrdersController < ApplicationController
     @order.address = @shipping.address
     @order.name = @shipping.name
   elsif params[:order][:address_number] == "2"
-     if params[:order][:postal_code] || params[:order][:name] ||params[:order][:address] == nil
-    render :new
-     return
-     end
+    # if params[:order][:postal_code] || params[:order][:name] || params[:order][:address] == nil
+    # render :new
+    # return
+    # end
   end
     @cart_items = current_customer.cart_items.all
     @total = 0
