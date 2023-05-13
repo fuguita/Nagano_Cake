@@ -23,10 +23,12 @@
                   <tr>
                    <td><%= image_tag cart_item.item.get_image(50,50) %><strong><%= cart_item.item.name %></strong></td>
                    <td class="pt-4"><%= cart_item.item.with_tax_price.to_s(:delimited) %></td>
-                   <td class="pt-4"><%= form_with model: cart_item do |f| %>
+                   <td class="pt-4">
+                       <%= form_with model: cart_item do |f| %>
                         <%= f.select :amount, *[1..10] %>
                         <%= f.submit '変更', class: "btn btn-sm btn-success" %>
-                       <% end %> </td>
+                       <% end %> 
+                    </td>
                    <td class="pt-4"><%= cart_item.subtotal.to_s(:delimited) %></td>
                    <td class="pt-3"><%= link_to '削除する', cart_item_path(cart_item), method: :delete, class: "btn btn-danger" %></td>
                   </tr>

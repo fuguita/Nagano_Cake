@@ -17,11 +17,13 @@
                 <td class="lead"><strong>￥<%= @item.with_tax_price %>(税込)</strong></td>
              </tr>
          <% if customer_signed_in? %>
-           <%= form_with model: @cart_item do |f| %>
              <tr>
-               <%= f.hidden_field :item_id, :value => @item.id %>
-               <td class="lead"><%= f.select :amount, *[1..10], prompt: "個数選択" %></td>
-               <td><%= f.submit 'カートに入れる', class: "btn btn-success" %></td>
+               <td class="lead">
+                   <%= form_with model: @cart_item do |f| %>
+                   <%= f.hidden_field :item_id, :value => @item.id %>
+                   <%= f.select :amount, *[1..10], prompt: "個数選択" %>
+                   <%= f.submit 'カートに入れる', class: "btn btn-success" %>
+               </td>
              </tr>
             <% end %>
            <% end %>
